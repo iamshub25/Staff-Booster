@@ -340,7 +340,8 @@ const ModernAboutUsSection = () => {
         variants={containerVariants}
       >
         {/* Header Section */}
-        <motion.div className="text-center mb-16" variants={itemVariants}>
+        {/* variants={itemVariants} */}
+        <motion.div className="text-center mb-16" >
           <motion.div
             className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4"
             initial={{ opacity: 0, y: -10 }}
@@ -368,7 +369,7 @@ const ModernAboutUsSection = () => {
         {/* Hero Image Section */}
         <motion.div 
           className="relative mb-20"
-          variants={itemVariants}
+          // variants={itemVariants}
         >
           <motion.div
             className="relative rounded-2xl overflow-hidden shadow-2xl"
@@ -420,7 +421,8 @@ const ModernAboutUsSection = () => {
         </motion.div>
 
         {/* Values Section */}
-        <motion.div className="mb-20" variants={itemVariants}>
+         {/* variants={itemVariants} */}
+        <motion.div className="mb-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Values</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -441,7 +443,8 @@ const ModernAboutUsSection = () => {
         </motion.div>
 
         {/* Team Section */}
-        <motion.div className="mb-20" variants={itemVariants}>
+        {/* variants={itemVariants} */}
+        <motion.div className="mb-20" >
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Leadership</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -465,7 +468,7 @@ const ModernAboutUsSection = () => {
         {/* Mission Statement */}
         <motion.div
           className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-2xl p-8 md:p-12 mb-20 border border-border"
-          variants={itemVariants}
+          // variants={itemVariants}
         >
           <div className="text-center">
             <Star className="w-12 h-12 text-primary mx-auto mb-6" />

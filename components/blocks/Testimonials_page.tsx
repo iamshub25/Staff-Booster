@@ -369,9 +369,9 @@ const TestimonialsPage = ({
       </section>
 
       {/* Grid Testimonials */}
-      <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6 flex justify-center">
-          <div className="grid max-w-5xl gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 justify-items-center">
+      <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 flex justify-center items-center">
+        <div className="w-full max-w-7xl px-4 md:px-6">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 place-items-center">
             {testimonials.map((testimonial, i) => (
               <motion.div
                 key={i}
