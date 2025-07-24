@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {Phone, Mail, Menu, X} from "lucide-react"
 
 export default function Navbar() {
@@ -43,14 +44,21 @@ export default function Navbar() {
 
       {/* Main navbar */}
       <header
-        className={`fixed w-full z-[1000] transition-all duration-300  ${
+        className={`fixed w-full z-40 transition-all duration-300  ${
           scrolled
             ? "bg-white backdrop-blur-sm shadow-md py-2 sticky top-0"
             : "py-3 sm:py-4 bg-white/80"
         }`}
       >
         <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center py-1">
+          <Link href="/" className="flex items-center py-1 gap-2">
+            <Image 
+              src="/pp.svg" 
+              alt="Staff Booster" 
+              width={120}
+              height={40}
+              className="h-8 sm:h-10 w-auto rounded-full"
+            />
             <span className="text-xl sm:text-2xl font-bold text-black">Staff Booster</span>
           </Link>
 

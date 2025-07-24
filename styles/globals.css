@@ -37,7 +37,7 @@
 *{
   border: 0 solid transparent;
   /* border: 2px solid red; */
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 /* body{
   background-color: white;

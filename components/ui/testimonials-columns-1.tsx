@@ -4,7 +4,12 @@ import { motion } from "motion/react";
 
 export const TestimonialsColumn = (props: {
   className?: string;
-  testimonials: typeof testimonials;
+  testimonials: {
+    text: string;
+    image: string;
+    name: string;
+    role: string;
+  }[];
   duration?: number;
 }) => {
   return (

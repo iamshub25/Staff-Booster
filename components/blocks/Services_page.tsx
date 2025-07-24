@@ -12,6 +12,7 @@ import {
   UserCheck
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import Link from 'next/link';
 
 interface ServiceCardProps {
   className?: string;
@@ -145,9 +146,10 @@ function HiringConsultancyServices({ services }: HiringConsultancyServicesProps)
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
-                Get Started
+                <Link href="/#contact">
+                  Get Started
+                </Link>
               </button>
-
             </div>
           </div>
         </div>

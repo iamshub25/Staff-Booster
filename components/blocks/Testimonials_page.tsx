@@ -80,7 +80,7 @@ const AnimatedTestimonials = ({
                     z: isActive(index) ? 0 : -100,
                     rotate: isActive(index) ? 0 : randomRotateY(),
                     zIndex: isActive(index)
-                      ? 999
+                      ? 20
                       : testimonials.length + 2 - index,
                     y: isActive(index) ? [0, -80, 0] : 0,
                   }}
@@ -280,13 +280,13 @@ const AvatarGroupWithTooltips = ({ testimonials }: { testimonials: Testimonial[]
 
 const TestimonialsPage = ({
   testimonials = [
-    {
-      quote: "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
-      name: "Sarah Chen",
-      designation: "Product Manager at TechFlow",
-      src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      rating: 5,
-    },
+    // {
+    //   quote: "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
+    //   name: "Sarah Chen",
+    //   designation: "Product Manager at TechFlow",
+    //   src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    //   rating: 5,
+    // },
     {
       quote: "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
       name: "Michael Rodriguez",

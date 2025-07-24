@@ -1,3 +1,4 @@
+"use client";
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -16,7 +17,7 @@ export default function Home() {
       <Head>
         <title>Staff Booster</title>
         <meta name="description" content="Professional consulting services to help your business grow and succeed in today's competitive market." />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/cc.ico" />
       </Head>
       
       <Navbar />

@@ -16,7 +16,12 @@ export default function About() {
           <div className="relative h-[27vh] md:h-[15vh] lg:h-[400px] rounded-lg overflow-hidden shadow-xl">
             <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
               <div className="text-gray-400 text-lg w-full">
-                <Image width={400} height={400} src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className='w-full h-full' alt="guy working"/>
+                <Image 
+                fill
+                style={{ objectFit: 'cover' }} 
+                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                className='w-full h-full' 
+                alt="guy working"/>
               </div>
             </div>
           </div>
