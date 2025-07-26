@@ -59,7 +59,7 @@ export default function Navbar() {
         <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center py-1 gap-3">
             <Image
-              src="/logo.svg"
+              src="/Logo.svg"
               alt="Staff Booster"
               width={180}
               height={80}
