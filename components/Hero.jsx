@@ -34,7 +34,7 @@ export default function Hero() {
             <Link href="#contact" className="btn btn-primary bg-accent hover:bg-yellow-500 text-gray-900">
               Get Started
             </Link>
-            <Link href="#services" className="btn border-2 border-black text-black hover:bg-white hover:text-blue-900">
+            <Link href="/services" className="btn border-2 border-black text-black hover:bg-white hover:text-blue-900">
               Our Services
             </Link>
           </div>

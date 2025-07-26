@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {Phone, Mail, Menu, X} from "lucide-react"
+import { Phone, Mail, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +25,8 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       const closeMenu = () => setIsOpen(false);
-      document.body.addEventListener('click', closeMenu);
-      return () => document.body.removeEventListener('click', closeMenu);
+      document.body.addEventListener("click", closeMenu);
+      return () => document.body.removeEventListener("click", closeMenu);
     }
   }, [isOpen]);
 
@@ -35,9 +35,15 @@ export default function Navbar() {
       {/* Contact bar - responsive */}
       <div className="w-full bg-gray-400">
         <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
-          <div className="py-2 flex flex-col  sm:flex-row sm:items-center sm:justify-between">
-            <span className="flex gap-1 items-center mb-2 sm:mb-0"><Phone size={18}/>+91 7709874425</span>
-            <Link href={"#"} className="flex gap-1 items-center"><Mail size={18}/>shubhampra25@gmail.com</Link>
+          <div className="py-2 flex flex-col  sm:flex-row sm:items-center md:gap-4">
+            <span className="flex gap-1 items-center mb-2 sm:mb-0">
+              <Phone size={18} />
+              +91 7709874425
+            </span>
+            <Link href={"#"} className="flex gap-1 items-center">
+              <Mail size={18} />
+              shubhampra25@gmail.com
+            </Link>
           </div>
         </div>
       </div>
@@ -51,15 +57,17 @@ export default function Navbar() {
         }`}
       >
         <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center py-1 gap-2">
-            <Image 
-              src="/pp.svg" 
-              alt="Staff Booster" 
-              width={120}
-              height={40}
+          <Link href="/" className="flex items-center py-1 gap-3">
+            <Image
+              src="/logo.svg"
+              alt="Staff Booster"
+              width={180}
+              height={80}
               className="h-8 sm:h-10 w-auto rounded-full"
             />
-            <span className="text-xl sm:text-2xl font-bold text-black">Staff Booster</span>
+            <span className="text-xl sm:text-2xl font-bold text-black">
+              Staff Booster
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -98,7 +106,7 @@ export default function Navbar() {
 
           {/* Mobile Navigation Button */}
           <button
-            className="md:hidden focus:outline-none z-50"
+            className="md:hidden  focus:outline-none z-50"
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen(!isOpen);
@@ -110,11 +118,11 @@ export default function Navbar() {
 
         {/* Mobile Navigation Menu - Improved */}
         {isOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-40"
             onClick={(e) => e.stopPropagation()}
           >
-            <div 
+            <div
               className="absolute right-0 top-0 h-screen w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out"
               onClick={(e) => e.stopPropagation()}
             >
@@ -155,6 +163,16 @@ export default function Navbar() {
                   Contact
                 </Link>
               </div>
+              {/* <div className="py-2 flex flex-col  sm:flex-row sm:items-center md:gap-4">
+                <span className="flex gap-1 items-center mb-2 sm:mb-0">
+                  <Phone size={18} />
+                  +91 7709874425
+                </span>
+                <Link href={"#"} className="flex gap-1 items-center">
+                  <Mail size={18} />
+                  shubhampra25@gmail.com
+                </Link>
+              </div> */}
             </div>
           </div>
         )}
