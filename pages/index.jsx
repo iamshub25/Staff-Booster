@@ -17,7 +17,7 @@ export default function Home() {
       <Head>
         <title>Staff Booster</title>
         <meta name="description" content="Professional consulting services to help your business grow and succeed in today's competitive market." />
-        <link rel="icon" href="/cc.ico" />
+        <link rel="icon" href="/Logo.ico" />
       </Head>
       
       <Navbar />
