@@ -1,7 +1,46 @@
 "use client";
+import { useState, useRef } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!recaptchaToken) {
+      alert('Please complete the reCAPTCHA verification.');
+      return;
+    }
+
+    // Your form submission logic here
+    console.log('Form data:', formData);
+    console.log('reCAPTCHA token:', recaptchaToken);
+    
+    // Reset form and reCAPTCHA after submission
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    setRecaptchaToken(null);
+    recaptchaRef.current?.reset();
+  };
   return (
     <section id="contact" className="section">
       <div className="container-custom">
@@ -53,15 +92,18 @@ export default function Contact() {
           <div>
             <h3 className="text-2xl font-bold mb-6">Send Us a Message</h3>
             
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block mb-1 font-medium">Name</label>
                   <input
                     type="text"
                     id="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="Your Name"
+                    required
                   />
                 </div>
                 <div>
@@ -69,8 +111,11 @@ export default function Contact() {
                   <input
                     type="email"
                     id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="Your Email"
+                    required
                   />
                 </div>
               </div>
@@ -80,8 +125,11 @@ export default function Contact() {
                 <input
                   type="text"
                   id="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Subject"
+                  required
                 />
               </div>
               
@@ -90,14 +138,26 @@ export default function Contact() {
                 <textarea
                   id="message"
                   rows="5"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Your Message"
+                  required
                 ></textarea>
+              </div>
+              
+              <div className="flex justify-center">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey="6LdmX5ArAAAAALFKI50DmzQsUZ4GT_1rThWdg_Zq"
+                  onChange={handleRecaptchaChange}
+                />
               </div>
               
               <button
                 type="submit"
                 className="btn btn-primary"
+                disabled={!recaptchaToken}
               >
                 Send Message
               </button>
