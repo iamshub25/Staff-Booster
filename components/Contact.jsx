@@ -24,7 +24,7 @@ export default function Contact() {
     setRecaptchaToken(token);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!recaptchaToken) {
@@ -32,14 +32,24 @@ export default function Contact() {
       return;
     }
 
-    // Your form submission logic here
-    console.log('Form data:', formData);
-    console.log('reCAPTCHA token:', recaptchaToken);
-    
-    // Reset form and reCAPTCHA after submission
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setRecaptchaToken(null);
-    recaptchaRef.current?.reset();
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, recaptchaToken })
+      });
+
+      if (response.ok) {
+        alert('Message sent successfully!');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setRecaptchaToken(null);
+        recaptchaRef.current?.reset();
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      alert('Error sending message. Please try again.');
+    }
   };
   return (
     <section id="contact" className="section">
