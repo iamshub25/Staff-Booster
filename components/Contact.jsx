@@ -7,6 +7,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    mobile: '',
     subject: '',
     message: ''
   });
@@ -41,7 +42,7 @@ export default function Contact() {
 
       if (response.ok) {
         alert('Message sent successfully!');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', mobile: '', subject: '', message: '' });
         setRecaptchaToken(null);
         recaptchaRef.current?.reset();
       } else {
@@ -73,7 +74,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Phone</h4>
-                  <p className="text-gray-700">+91 7709874425</p>
+                  <p className="text-gray-700">+91 9835968923</p>
                 </div>
               </div>
               
@@ -83,7 +84,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Email</h4>
-                  <p className="text-gray-700">shubhampra25@gmail.com</p>
+                  <p className="text-gray-700">connect@staffbooster.com</p>
                 </div>
               </div>
               
@@ -93,7 +94,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Address</h4>
-                  <p className="text-gray-700">Omakara Apt 102<br />401404 Palghar</p>
+                  <p className="text-gray-700">House no.451, second floor, sector 14 awas vikas colony, sikandra <br />282007 Agra</p>
                 </div>
               </div>
             </div>
@@ -130,18 +131,34 @@ export default function Contact() {
                 </div>
               </div>
               
-              <div>
-                <label htmlFor="subject" className="block mb-1 font-medium">Subject</label>
-                <input
-                  type="text"
-                  id="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Subject"
-                  required
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="mobile" className="block mb-1 font-medium">Mobile Number</label>
+                  <input
+                    type="tel"
+                    id="mobile"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Your Mobile Number"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="subject" className="block mb-1 font-medium">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Subject"
+                    required
+                  />
+                </div>
               </div>
+              
+
               
               <div>
                 <label htmlFor="message" className="block mb-1 font-medium">Message</label>
@@ -167,8 +184,7 @@ export default function Contact() {
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={!recaptchaToken}
-              >
+                disabled={!recaptchaToken}              >
                 Send Message
               </button>
             </form>
