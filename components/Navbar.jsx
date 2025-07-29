@@ -7,6 +7,24 @@ import { Phone, Mail, Menu, X } from "lucide-react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+91 9835968923',
+    email: 'connect@staffbooster.com'
+  });
+
+  useEffect(() => {
+    fetchContactInfo();
+  }, []);
+
+  const fetchContactInfo = async () => {
+    try {
+      const res = await fetch('/api/admin/contact-info');
+      const data = await res.json();
+      setContactInfo(data);
+    } catch (error) {
+      console.error('Error fetching contact info:', error);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,11 +75,11 @@ export default function Navbar() {
           <div className="py-2 flex flex-col  sm:flex-row sm:items-center md:gap-4">
             <span className="flex gap-1 items-center mb-2 sm:mb-0">
               <Phone size={18} />
-              +91 9835968923
+              {contactInfo.phone}
             </span>
             <Link href={"#"} className="flex gap-1 items-center">
               <Mail size={18} />
-              connect@staffbooster.com
+              {contactInfo.email}
             </Link>
           </div>
         </div>
@@ -202,11 +220,11 @@ export default function Navbar() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-600">
                     <Phone size={18} className="text-primary" />
-                    <span className="text-sm">+91 9835968923</span>
+                    <span className="text-sm">{contactInfo.phone}</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-600">
                     <Mail size={18} className="text-primary" />
-                    <span className="text-sm">connect@staffbooster.com</span>
+                    <span className="text-sm">{contactInfo.email}</span>
                   </div>
                 </div>
               </div>

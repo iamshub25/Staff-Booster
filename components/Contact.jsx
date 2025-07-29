@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -13,6 +13,25 @@ export default function Contact() {
   });
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const recaptchaRef = useRef(null);
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+91 9835968923',
+    email: 'connect@staffbooster.com',
+    address: 'House no.451, second floor, sector 14 awas vikas colony, sikandra\n282007 Agra'
+  });
+
+  useEffect(() => {
+    fetchContactInfo();
+  }, []);
+
+  const fetchContactInfo = async () => {
+    try {
+      const res = await fetch('/api/admin/contact-info');
+      const data = await res.json();
+      setContactInfo(data);
+    } catch (error) {
+      console.error('Error fetching contact info:', error);
+    }
+  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -74,7 +93,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Phone</h4>
-                  <p className="text-gray-700">+91 9835968923</p>
+                  <p className="text-gray-700">{contactInfo.phone}</p>
                 </div>
               </div>
               
@@ -84,7 +103,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Email</h4>
-                  <p className="text-gray-700">connect@staffbooster.com</p>
+                  <p className="text-gray-700">{contactInfo.email}</p>
                 </div>
               </div>
               
@@ -94,7 +113,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Address</h4>
-                  <p className="text-gray-700">House no.451, second floor, sector 14 awas vikas colony, sikandra <br />282007 Agra</p>
+                  <p className="text-gray-700" style={{whiteSpace: 'pre-line'}}>{contactInfo.address}</p>
                 </div>
               </div>
             </div>
