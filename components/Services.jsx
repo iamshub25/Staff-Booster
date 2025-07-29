@@ -1,39 +1,75 @@
 "use client";
-import { FaChartLine, FaUsers, FaLaptopCode, FaBullhorn, FaFileAlt, FaHandshake } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { 
+  FaChartLine, FaUsers, FaLaptopCode, FaBullhorn, FaFileAlt, FaHandshake, FaCog,
+  FaRocket, FaShieldAlt, FaGlobe, FaDatabase, FaMobile, FaCloud, FaSearch,
+  FaHeart, FaStar, FaThumbsUp, FaLightbulb
+} from 'react-icons/fa';
 
 export default function Services() {
-  const services = [
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  const fetchServices = async () => {
+    try {
+      const res = await fetch('/api/admin/services');
+      const data = await res.json();
+      // Combine static services with dynamic ones
+      const allServices = [...defaultServices, ...data];
+      setServices(allServices);
+    } catch (error) {
+      console.error('Error fetching services:', error);
+      setServices(defaultServices);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const defaultServices = [
     {
-      icon: <FaChartLine className="text-4xl text-primary mb-4" />,
+      icon: "FaChartLine",
       title: "Business Strategy",
       description: "Develop effective business strategies to achieve your goals and stay ahead of the competition."
     },
     {
-      icon: <FaUsers className="text-4xl text-primary mb-4" />,
+      icon: "FaUsers",
       title: "HR Consulting",
       description: "Optimize your human resources practices to attract and retain top talent for your organization."
     },
     {
-      icon: <FaLaptopCode className="text-4xl text-primary mb-4" />,
+      icon: "FaLaptopCode",
       title: "IT Solutions",
       description: "Implement cutting-edge technology solutions to streamline operations and enhance productivity."
-    },
-    {
-      icon: <FaBullhorn className="text-4xl text-primary mb-4" />,
-      title: "Marketing Strategy",
-      description: "Create impactful marketing strategies to boost your brand visibility and customer engagement."
-    },
-    {
-      icon: <FaFileAlt className="text-4xl text-primary mb-4" />,
-      title: "Financial Planning",
-      description: "Develop comprehensive financial plans to ensure long-term stability and growth for your business."
-    },
-    {
-      icon: <FaHandshake className="text-4xl text-primary mb-4" />,
-      title: "Partnership Development",
-      description: "Build strategic partnerships to expand your market reach and create new business opportunities."
     }
   ];
+
+  const getIcon = (iconName) => {
+    const icons = {
+      FaChartLine: <FaChartLine className="text-4xl text-primary mb-4" />,
+      FaUsers: <FaUsers className="text-4xl text-primary mb-4" />,
+      FaLaptopCode: <FaLaptopCode className="text-4xl text-primary mb-4" />,
+      FaBullhorn: <FaBullhorn className="text-4xl text-primary mb-4" />,
+      FaFileAlt: <FaFileAlt className="text-4xl text-primary mb-4" />,
+      FaHandshake: <FaHandshake className="text-4xl text-primary mb-4" />,
+      FaCog: <FaCog className="text-4xl text-primary mb-4" />,
+      FaRocket: <FaRocket className="text-4xl text-primary mb-4" />,
+      FaShieldAlt: <FaShieldAlt className="text-4xl text-primary mb-4" />,
+      FaGlobe: <FaGlobe className="text-4xl text-primary mb-4" />,
+      FaDatabase: <FaDatabase className="text-4xl text-primary mb-4" />,
+      FaMobile: <FaMobile className="text-4xl text-primary mb-4" />,
+      FaCloud: <FaCloud className="text-4xl text-primary mb-4" />,
+      FaSearch: <FaSearch className="text-4xl text-primary mb-4" />,
+      FaHeart: <FaHeart className="text-4xl text-primary mb-4" />,
+      FaStar: <FaStar className="text-4xl text-primary mb-4" />,
+      FaThumbsUp: <FaThumbsUp className="text-4xl text-primary mb-4" />,
+      FaLightbulb: <FaLightbulb className="text-4xl text-primary mb-4" />
+    };
+    return icons[iconName] || <FaCog className="text-4xl text-primary mb-4" />;
+  };
 
   return (
     <section id="services" className="section">
@@ -46,17 +82,21 @@ export default function Services() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-center">
-                {service.icon}
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-gray-700">{service.description}</p>
+        {loading ? (
+          <div className="text-center">Loading services...</div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <div key={service.id || index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                <div className="text-center">
+                  {getIcon(service.icon)}
+                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                  <p className="text-gray-700">{service.description}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
