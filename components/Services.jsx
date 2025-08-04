@@ -32,18 +32,23 @@ export default function Services() {
   const defaultServices = [
     {
       icon: "FaChartLine",
-      title: "Business Strategy",
-      description: "Develop effective business strategies to achieve your goals and stay ahead of the competition."
+      title: " Personalized Job Matching",
+      description: "Get job recommendations tailored to your skills, preferences, and career goals."
     },
     {
       icon: "FaUsers",
-      title: "HR Consulting",
-      description: "Optimize your human resources practices to attract and retain top talent for your organization."
+      title: "HRResume & Portfolio Review",
+      description: "Receive expert feedback to optimize your resume and portfolio for better visibility and results."
     },
     {
       icon: "FaLaptopCode",
-      title: "IT Solutions",
-      description: "Implement cutting-edge technology solutions to streamline operations and enhance productivity."
+      title: "Skill-Based Roadmaps",
+      description: "Follow curated learning paths for roles like Web Developer, Data Analyst, Digital Marketer, and more."
+    },
+    {
+      icon: "FaDatabase",
+      title: "Internship & Job Listings",
+      description: "Explore verified openings from startups, MNCs, and everything in between — all in one place."
     }
   ];
 

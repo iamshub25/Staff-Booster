@@ -2,9 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardHeader, CardFooter, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardContent,
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -12,7 +22,6 @@ interface Testimonial {
   quote: string;
   name: string;
   designation: string;
-  src: string;
   rating: number;
 }
 
@@ -60,14 +69,19 @@ const AnimatedTestimonials = ({
   };
 
   return (
-    <div className={cn("w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-20", className)}>
+    <div
+      className={cn(
+        "w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-20",
+        className
+      )}
+    >
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-20">
         <div className="order-2 md:order-1">
           <div className="relative h-64 sm:h-72 md:h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
-                  key={testimonial.src}
+                  key={index}
                   initial={{
                     opacity: 0,
                     scale: 0.9,
@@ -96,14 +110,14 @@ const AnimatedTestimonials = ({
                   }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <img
-                    src={testimonial.src}
-                    alt={testimonial.name}
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
-                  />
+                  <div className="h-full w-full rounded-3xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                    <div className="text-6xl font-bold text-blue-600">
+                      {testimonial.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -130,12 +144,14 @@ const AnimatedTestimonials = ({
             }}
           >
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              {Array.from({ length: testimonials[active].rating }).map((_, idx) => (
-                <Star
-                  key={idx}
-                  className="h-4 w-4 sm:h-5 sm:w-5 fill-yellow-400 text-yellow-400"
-                />
-              ))}
+              {Array.from({ length: testimonials[active].rating }).map(
+                (_, idx) => (
+                  <Star
+                    key={idx}
+                    className="h-4 w-4 sm:h-5 sm:w-5 fill-yellow-400 text-yellow-400"
+                  />
+                )
+              )}
             </div>
             <h3 className="text-xl sm:text-2xl font-bold text-foreground">
               {testimonials[active].name}
@@ -215,8 +231,11 @@ const TestimonialsColumn = ({
         {[
           ...new Array(2).fill(0).map((_, index) => (
             <React.Fragment key={index}>
-              {testimonials.map(({ quote, src, name, designation, rating }, i) => (
-                <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-lg shadow-primary/10 max-w-xs w-full bg-card" key={i}>
+              {testimonials.map(({ quote, name, designation, rating }, i) => (
+                <div
+                  className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-lg shadow-primary/10 max-w-xs w-full bg-card"
+                  key={i}
+                >
                   <div className="flex items-center gap-2 mb-3 sm:mb-4">
                     <Quote className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
                     {Array.from({ length: rating }).map((_, idx) => (
@@ -226,18 +245,23 @@ const TestimonialsColumn = ({
                       />
                     ))}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">{quote}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                    {quote}
+                  </div>
                   <div className="flex items-center gap-3">
-                    <img
-                      width={32}
-                      height={32}
-                      src={src}
-                      alt={name}
-                      className="h-8 w-8 rounded-full object-cover"
-                    />
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+                      {name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
                     <div className="flex flex-col">
-                      <div className="font-medium tracking-tight leading-5 text-xs sm:text-sm">{name}</div>
-                      <div className="leading-4 sm:leading-5 opacity-60 tracking-tight text-xs">{designation}</div>
+                      <div className="font-medium tracking-tight leading-5 text-xs sm:text-sm">
+                        {name}
+                      </div>
+                      <div className="leading-4 sm:leading-5 opacity-60 tracking-tight text-xs">
+                        {designation}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -250,7 +274,11 @@ const TestimonialsColumn = ({
   );
 };
 
-const AvatarGroupWithTooltips = ({ testimonials }: { testimonials: Testimonial[] }) => {
+const AvatarGroupWithTooltips = ({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}) => {
   return (
     <TooltipProvider delayDuration={300}>
       <div className="bg-background flex items-center justify-center rounded-full border p-1">
@@ -259,15 +287,25 @@ const AvatarGroupWithTooltips = ({ testimonials }: { testimonials: Testimonial[]
             <Tooltip key={index}>
               <TooltipTrigger asChild>
                 <div
-                  className={cn("relative hover:z-10", index > 0 && "-ml-1 sm:-ml-2")}
+                  className={cn(
+                    "relative hover:z-10",
+                    index > 0 && "-ml-1 sm:-ml-2"
+                  )}
                 >
                   <Avatar className="w-8 h-8 sm:w-10 sm:h-10 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-lg border-2 border-background">
-                    <AvatarImage src={testimonial.src} alt={testimonial.name} />
-                    <AvatarFallback className="text-xs sm:text-sm">{testimonial.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    <AvatarFallback className="text-xs sm:text-sm bg-gradient-to-br from-blue-400 to-purple-500 text-white">
+                      {testimonial.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
                   </Avatar>
                 </div>
               </TooltipTrigger>
-              <TooltipContent side="bottom" className="font-medium text-xs sm:text-sm">
+              <TooltipContent
+                side="bottom"
+                className="font-medium text-xs sm:text-sm"
+              >
                 {testimonial.name}
               </TooltipContent>
             </Tooltip>
@@ -280,46 +318,39 @@ const AvatarGroupWithTooltips = ({ testimonials }: { testimonials: Testimonial[]
 
 const TestimonialsPage = ({
   testimonials = [
-    // {
-    //   quote: "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
-    //   name: "Sarah Chen",
-    //   designation: "Product Manager at TechFlow",
-    //   src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    //   rating: 5,
-    // },
     {
-      quote: "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
-      name: "Michael Rodriguez",
-      designation: "CTO at InnovateSphere",
-      src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      quote:
+        "This platform changed my career path. I was struggling to land interviews, but the personalized tips and resume support helped me get a job at a leading tech startup.",
+      name: "Priya Mehta",
+      designation: "Front-End Developer",
       rating: 5,
     },
     {
-      quote: "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
-      name: "Emily Watson",
-      designation: "Operations Director at CloudScale",
-      src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      quote:
+        "The job recommendations were spot on. I found roles that truly matched my interests and skills. I'm now working in a role I love and growing fast!",
+      name: "Rahul Verma",
+      designation: "Digital Marketing Executive",
       rating: 4,
     },
     {
-      quote: "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-      name: "James Kim",
-      designation: "Engineering Lead at DataPro",
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      quote:
+        "This site gave me the confidence to switch careers. The mock interviews were exactly what I needed to prepare for real-world challenges.",
+      name: "Aman Khurana",
+      designation: "Data Analyst",
       rating: 5,
     },
     {
-      quote: "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
-      name: "Lisa Thompson",
-      designation: "VP of Technology at FutureNet",
-      src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      quote:
+        "I used this site to shift from a support role to HR. The role-based preparation resources really made a difference.",
+      name: "Aarti Sharma",
+      designation: "Human Resources Associate",
       rating: 5,
     },
     {
-      quote: "Exceptional user experience and powerful analytics. This platform has revolutionized how we approach our business.",
-      name: "David Park",
-      designation: "CEO at StartupFlow",
-      src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      quote:
+        "As a fresher, I was nervous. But the mentoring sessions and job-matching tools helped me start my career in content writing with confidence.",
+      name: " Ritika Bansal",
+      designation: " Content Writer",
       rating: 4,
     },
   ],
@@ -334,7 +365,12 @@ const TestimonialsPage = ({
   const thirdColumn = testimonials.slice(4, 6);
 
   return (
-    <div className={cn("min-h-screen bg-background w-full overflow-x-hidden", className)}>
+    <div
+      className={cn(
+        "min-h-screen bg-background w-full overflow-x-hidden",
+        className
+      )}
+    >
       {/* Header Section */}
       <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 mt-12">
         <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
@@ -384,28 +420,31 @@ const TestimonialsPage = ({
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <div className="flex">
-                        {Array.from({ length: testimonial.rating }).map((_, idx) => (
-                          <Star
-                            key={idx}
-                            className="h-3 w-3 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400"
-                          />
-                        ))}
+                        {Array.from({ length: testimonial.rating }).map(
+                          (_, idx) => (
+                            <Star
+                              key={idx}
+                              className="h-3 w-3 sm:h-4 sm:w-4 fill-yellow-400 text-yellow-400"
+                            />
+                          )
+                        )}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="pb-3">
-                    <p className="text-sm sm:text-base text-muted-foreground">"{testimonial.quote}"</p>
+                    <p className="text-sm sm:text-base text-muted-foreground">
+                      "{testimonial.quote}"
+                    </p>
                   </CardContent>
                   <CardFooter className="mt-auto pt-3">
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <img
-                        src={testimonial.src}
-                        alt={testimonial.name}
-                        className="rounded-full w-8 h-8 sm:w-10 sm:h-10 object-cover flex-shrink-0"
-                      />
                       <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-medium truncate">{testimonial.name}</p>
-                        <p className="text-xs text-muted-foreground truncate">{testimonial.designation}</p>
+                        <p className="text-xs sm:text-sm font-medium truncate">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {testimonial.designation}
+                        </p>
                       </div>
                     </div>
                   </CardFooter>
@@ -427,7 +466,9 @@ const TestimonialsPage = ({
             className="flex flex-col items-center justify-center max-w-[90%] sm:max-w-[540px] mx-auto mb-8 sm:mb-10"
           >
             <div className="flex justify-center">
-              <div className="border py-1 px-3 sm:px-4 rounded-lg text-xs sm:text-sm">More Reviews</div>
+              <div className="border py-1 px-3 sm:px-4 rounded-lg text-xs sm:text-sm">
+                More Reviews
+              </div>
             </div>
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tighter mt-4 sm:mt-5 text-center">
               Join thousands of satisfied customers
@@ -439,8 +480,16 @@ const TestimonialsPage = ({
 
           <div className="flex justify-center gap-3 sm:gap-4 md:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[500px] sm:max-h-[600px] md:max-h-[740px] overflow-hidden">
             <TestimonialsColumn testimonials={firstColumn} duration={15} />
-            <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
-            <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
+            <TestimonialsColumn
+              testimonials={secondColumn}
+              className="hidden md:block"
+              duration={19}
+            />
+            <TestimonialsColumn
+              testimonials={thirdColumn}
+              className="hidden lg:block"
+              duration={17}
+            />
           </div>
         </div>
       </section>
