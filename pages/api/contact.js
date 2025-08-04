@@ -10,6 +10,10 @@ export default async function handler(req, res) {
     console.log('API called with data:', { name, email, subject });
 
     // Verify reCAPTCHA
+    console.log('Verifying reCAPTCHA...');
+    console.log('Secret key exists:', !!process.env.RECAPTCHA_SECRET_KEY);
+    console.log('Token received:', !!recaptchaToken);
+    
     const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -17,8 +21,14 @@ export default async function handler(req, res) {
     });
     
     const recaptchaData = await recaptchaResponse.json();
+    console.log('reCAPTCHA response:', recaptchaData);
+    
     if (!recaptchaData.success) {
-      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+      console.log('reCAPTCHA errors:', recaptchaData['error-codes']);
+      return res.status(400).json({ 
+        error: 'reCAPTCHA verification failed',
+        details: recaptchaData['error-codes']
+      });
     }
     
     // Create transporter (supports both Gmail and Outlook)
