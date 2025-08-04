@@ -65,9 +65,12 @@ export default function Contact() {
         setRecaptchaToken(null);
         recaptchaRef.current?.reset();
       } else {
-        alert('Failed to send message. Please try again.');
+        const errorData = await response.json();
+        console.error('Server error:', errorData);
+        alert(`Failed to send message: ${errorData.error || 'Please try again'}`);
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       alert('Error sending message. Please try again.');
     }
   };
