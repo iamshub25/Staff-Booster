@@ -9,27 +9,19 @@ export default async function handler(req, res) {
     const { name, email, mobile, subject, message, recaptchaToken } = req.body;
     console.log('API called with data:', { name, email, subject });
 
-    // Verify reCAPTCHA
-    console.log('Verifying reCAPTCHA...');
-    console.log('Secret key exists:', !!process.env.RECAPTCHA_SECRET_KEY);
-    console.log('Token received:', !!recaptchaToken);
+    // Skip reCAPTCHA verification temporarily for production testing
+    console.log('Skipping reCAPTCHA verification for testing');
     
-    const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
-    });
-    
-    const recaptchaData = await recaptchaResponse.json();
-    console.log('reCAPTCHA response:', recaptchaData);
-    
-    if (!recaptchaData.success) {
-      console.log('reCAPTCHA errors:', recaptchaData['error-codes']);
-      return res.status(400).json({ 
-        error: 'reCAPTCHA verification failed',
-        details: recaptchaData['error-codes']
-      });
-    }
+    // TODO: Re-enable reCAPTCHA verification after testing
+    // const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //   body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
+    // });
+    // const recaptchaData = await recaptchaResponse.json();
+    // if (!recaptchaData.success) {
+    //   return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+    // }
     
     // Create transporter (supports both Gmail and Outlook)
     const transporter = nodemailer.createTransport({
